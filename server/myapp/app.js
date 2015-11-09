@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+//Route definitions
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -20,9 +21,17 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Middleware for cookie parser
 app.use(cookieParser());
+// Express-session middleware
 app.use(session({ secret: 'lhaalkqwosafjklqwnadsnksd', resave: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+//Middleware to enable CROS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use('/', routes);
 app.use('/users', users);
