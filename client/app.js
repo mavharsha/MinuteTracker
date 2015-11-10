@@ -11,7 +11,12 @@
         
                     })
                     .when("/dashboard", {
-                        templateUrl : "dashboard.html"        
+                        templateUrl : "dashboard.html",
+                        controller  : "DashboardController"
+                    })
+                    .when("/logout", {
+                        templateUrl : "logout",
+                        controller  : "LogoutController"
                     })
                     .otherwise({redirectTo : "/login"});
     

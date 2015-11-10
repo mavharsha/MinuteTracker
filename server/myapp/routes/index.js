@@ -7,24 +7,21 @@ router.post('/login', function(req, res){
 
     var username  = req.body.username;
     var password = req.body.password;
-    
+        
     User.findOne({username: username, password: password}, function(err, user){
-    
         if(err){
             console.log(err);
         }
         else{
-        
             if(!user){
               return  res.status(401).send();
             }            
-            req.session.user = user;
-            return res.status(200).send(user);
+            req.session.username = user.username;
+            var responseObject = {  message : "Successfully logged in.",
+                                    username: user.username };
+            return res.status(200).send(responseObject);
         }
-    
-    });
-    
-    
+    });    
 });
 
 
@@ -50,20 +47,31 @@ router.post('/register', function(req, res){
             console.log(err);
             return   res.status(500).send();
         }
-        return res.status(200).send(savedUser);
+        
+        var responseObject = {message : "Successfully registered"};
+        return res.status(200).send(responseObject);
     });
 
+});
+
+
+router.get('/logout', function(req, res){
+
+    req.session.destroy();
+    var responseObject = {message : "Successfully logged out"};
+    return res.status(200).send(responseObject);
 });
 
 /* GET home page. */
 router.get('/dashboard', function(req, res) {
  
     console.log("You hit dashboard");
-    
-    if(!req.session.user){
+    if(!req.session.username){
          return res.status(401).send();
     }
-    return  res.status(200).send({message: "Logged in! Now you will have a bunch of data, and you will have to go through it and display it."});
+    console.log(req.session.username);
+    var responseObject = { message: "Logged in! Now you will have a bunch of data, and you will have to go through it and display it."};
+    return  res.status(200).send(responseObject);
     
 });
 

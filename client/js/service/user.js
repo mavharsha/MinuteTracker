@@ -19,6 +19,14 @@
             
             };
         
+        
+        var logout = function(){
+        
+        
+        
+        };
+        
+        
         return {login : login };
     });
 }());
