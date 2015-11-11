@@ -5,7 +5,7 @@ var User = require('../Lib/User');
 
 router.post('/login', function(req, res){
 
-    var username  = req.body.username;
+    var username = req.body.username;
     var password = req.body.password;
         
     User.findOne({username: username, password: password}, function(err, user){
