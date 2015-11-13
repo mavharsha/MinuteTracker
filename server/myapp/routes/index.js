@@ -19,7 +19,8 @@ router.post('/login', function(req, res){
             req.session.username = user.username;
             var responseObject = {  message : "Successfully logged in.",
                                     username: user.username };
-            return res.status(200).send(responseObject);
+            console.log(responseObject);
+            return res.status(200).json(responseObject);
         }
     });    
 });
@@ -49,7 +50,7 @@ router.post('/register', function(req, res){
         }
         
         var responseObject = {message : "Successfully registered"};
-        return res.status(200).send(responseObject);
+        return res.status(200).json(responseObject);
     });
 
 });
@@ -59,7 +60,7 @@ router.get('/logout', function(req, res){
 
     req.session.destroy();
     var responseObject = {message : "Successfully logged out"};
-    return res.status(200).send(responseObject);
+    return res.status(200).json(responseObject);
 });
 
 /* GET home page. */
@@ -71,8 +72,7 @@ router.get('/dashboard', function(req, res) {
     }
     console.log(req.session.username);
     var responseObject = { message: "Logged in! Now you will have a bunch of data, and you will have to go through it and display it."};
-    return  res.status(200).send(responseObject);
-    
+    return  res.status(200).json(responseObject);
 });
 
 

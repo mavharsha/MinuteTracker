@@ -8,7 +8,6 @@
                     .when("/login", {
                         templateUrl : "login.html",
                         controller  : "LoginController"
-        
                     })
                     .when("/dashboard", {
                         templateUrl : "dashboard.html",

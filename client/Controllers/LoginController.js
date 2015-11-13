@@ -7,7 +7,9 @@
         $scope.password = "dumb";
 
         var onComplete = function(response){
-                console.log("Response is "+ response.data);
+              console.log("Response is "+ JSON.stringify(response));
+              console.log("Response is "+ response.data.username);
+              console.log("Response is "+ response.data.message);
 
             if(response.status == 200){
                 $location.path("/dashboard");
@@ -19,8 +21,7 @@
         };
         
     $scope.login = function() {
-         console.log("Login pressed");
-       // $location.path("/dashboard");
+        console.log("Login pressed");
         user.login($scope.username, $scope.password)
             .then(onComplete, onerror);
     };

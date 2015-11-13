@@ -14,7 +14,7 @@
             
            return $http.post("http://localhost:3000/login", data)
                     .then(function(response){
-                    console.log("the response recieved is "+ response);
+                    console.log("the response recieved is "+ response.data);
                      return response;
                     });
             
