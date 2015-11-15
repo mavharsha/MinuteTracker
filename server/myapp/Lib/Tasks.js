@@ -4,7 +4,13 @@ var taskSchema = new mongoose.Schema({
 
     username    : String,
     task        : String,
-    categoory   : String
+    category    : String,
+    updatedTime : String,
+    updatedDay  : String,
+    updatedDate  : String,
+    updatedMonth : String,
+    updatedYear : String
+
 });
 
 
