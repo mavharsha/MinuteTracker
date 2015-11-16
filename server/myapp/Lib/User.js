@@ -8,7 +8,5 @@ var userSchema = new mongoose.Schema({
     lastname:  String
 });
 
-
 var User = mongoose.model('myusers'/*Collection name*/, userSchema);
-
 module.exports = User;

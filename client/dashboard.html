@@ -1,23 +1,18 @@
  <div class="row theme-base-0e">
                 <div class="sidebar" >
-     
                     <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
-     
                 </div>
-                <div class="content" > 
+                <div class="content" >
+                    <h3>Todays Tasks</h3>
+                    <div class="spacer-s"></div>
                                 <table style="width:100%">
-                                    
                                     <!-- Set css for width of each td as 44% and the bottom padding as 10px -->
-                                      <tr>
-                                        <td>Task 1</td>
-                                        <td>Category 1</td> 
+                           
+                                    <tr ng-repeat="eachTask in allTasks">
+                                        <td>{{ eachTask.task }}</td>
+                                        <td>{{ eachTask.category }}</td> 
                                         <td><button type="button" class="btn" >Edit</button></td>
-                                      </tr>
-                                      <tr>
-                                        <td>Task 2</td>
-                                        <td>Category 2</td> 
-                                        <td><button type="button" class="btn" >Edit</button></td>
-                                      </tr>
+                                    </tr>
                                     </table>
                             <div class="spacer">
                                 <div class="row">
@@ -28,8 +23,9 @@
                                 <input type="text" placeholder="Category"  class="form-control" ng-model="category"/>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" class="btn btn-success" >Add Task</button>
+                                    <button type="button" class="btn btn-success" ng-click="addTask()" >Add Task</button>
+                                </div>
                                 </div>
                             </div>
+                </div>
 </div>
-

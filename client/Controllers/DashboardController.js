@@ -1,28 +1,39 @@
 (function(){
 
-
     var myapp = angular.module("myapp");
     
-    app.controller('DashboardController', ['$scope', function($scope) {
+    myapp.controller('DashboardController', ['$scope', 'task', function($scope, task) {
     
         $scope.task = "";
         $scope.category = "";
+        $scope.allTasks  = [];
         
-        $scope.taskAdded = function(){
+        $scope.getTasks = function(){
             
-            if(!$scope.task & !$scope.category)
-            {
-            var data = { task : $scope.task, category : $scope.category};
-            console.log("Data being sent from client " + data);
-           $http.post("http://localhost:3000/dashboard", data)
-                .then(function(response){
-                    console.log(response.data);
-                });
-            }
-        };
-    
-
-    }]);
+                task.getTasks()
+                    .then(function(response){
+                                    console.log(JSON.stringify(response.data.tasks));
+                                    $scope.allTasks = response.data.tasks;
+                                    });
+                            };
+        
+        $scope.getTasks();
+        
+        $scope.addTask = function(){
+                    
+            if( $scope.task != "" &&  $scope.category != "")
+                {
+                    task.postTask($scope.task, $scope.category)
+                        .then(function(response){
+                            console.log(JSON.stringify(response.data));
+                            $scope.getTasks();
+                        });
+                }else
+                {
+                    console.log("Please enter the data");
+                }
+        }
+    }]); // End of the controller
 
 
 }());

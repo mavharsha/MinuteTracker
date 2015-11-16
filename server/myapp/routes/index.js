@@ -16,14 +16,16 @@ router.post('/login', function(req, res){
         }
         else{
             if(!user){
-                console.log("No user found");
-              return  res.status(401).send();
+              console.log("No user found");
+                res.status(401).send();
             }            
             req.session.username = user.username;
             var responseObject = {  message : "Successfully logged in.",
                                     username: user.username };
             console.log(responseObject);
-            return res.status(200).json(responseObject);
+            console.log("Session saved is " + JSON.stringify(req.session));
+
+             res.status(200).json(responseObject);
         }
     });    
 });
@@ -77,20 +79,17 @@ router.post('/dashboard', function(req, res) {
     var date = new Date().getDate();
     var month = new Date().getMonth();
     var year = new Date().getYear();
-    // day of the week
-    // date 
-    // month
-    // year
+    
  
-    console.log("You hit dashboard");
+    console.log("You " + JSON.stringify(req.session)+" hit dashboard");
     console.log("Time "+ time + " Day "+ day + " Date "+date+" Month "+ month + " Year "+ month);
 
     console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category);
 
-    if(!req.session.username){
+    if(req.session.username === 'undefined'){
          return res.status(401).send();
     }
-    console.log(req.session.username);
+    console.log(JSON.stringify(req.session));
     
     var username = req.session.username;
     
@@ -110,7 +109,6 @@ router.post('/dashboard', function(req, res) {
             console.log("Couldnot add tasks");
             return res.status(500).send();
         }
-        
         var responseObject = {message : "Successfully saved task"};
         return res.status(200).json(responseObject);
 
@@ -121,11 +119,11 @@ router.post('/dashboard', function(req, res) {
 router.get('/dashboard', function(req, res){
 
     
-    if(!req.session.username){
+    if(req.session.username === 'undefined'){
          return res.status(401).send();
     }
     
-    
+    console.log("You " + req.session.username +" hit dashboard");    
     Tasks.find({},{'__v':0, '_id': 0}, function(err, tasks){
         if(err){
             console.log(err);
@@ -138,7 +136,7 @@ router.get('/dashboard', function(req, res){
             var responseObject = {  message : "Successfully",
                                     username: req.session.username,
                                     tasks   : tasks};
-            console.log(responseObject);
+            console.log(JSON.stringify(responseObject));
             return res.status(200).json(responseObject);
         }
     });   
