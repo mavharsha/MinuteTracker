@@ -17,7 +17,9 @@
                                     });
                             };
         
+/*
         $scope.getTasks();
+*/
         
         $scope.addTask = function(){
                     
