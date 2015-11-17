@@ -16,16 +16,18 @@ router.post('/login', function(req, res){
         }
         else{
             if(!user){
-              console.log("No user found");
+                console.log("No user found");
                 res.status(401).send();
-            }            
-            req.session.username = user.username;
-            var responseObject = {  message : "Successfully logged in.",
-                                    username: user.username };
-            console.log(responseObject);
-            console.log("Session saved is " + JSON.stringify(req.session));
+                }
+            else{
+                
+                req.session.user = user.username;
+                var responseObject = {  message : "Successfully logged in.",
+                                        username: user.username };
+                console.log("Session saved is " + JSON.stringify(req.session));
 
-             res.status(200).json(responseObject);
+                 res.status(200).json(responseObject);
+            }
         }
     });    
 });
@@ -53,9 +55,11 @@ router.post('/register', function(req, res){
             console.log(err);
             return   res.status(500).send();
         }
-        
-        var responseObject = {message : "Successfully registered"};
-        return res.status(200).json(responseObject);
+        else
+        {
+            var responseObject = {message : "Successfully registered"};
+            res.status(200).json(responseObject);
+        }
     });
 
 });
@@ -65,7 +69,7 @@ router.get('/logout', function(req, res){
 
     req.session.destroy();
     var responseObject = {message : "Successfully logged out"};
-    return res.status(200).json(responseObject);
+    res.status(200).json(responseObject);
 });
 
 
@@ -81,67 +85,74 @@ router.post('/dashboard', function(req, res) {
     var year = new Date().getYear();
     
  
-    console.log("You " + JSON.stringify(req.session)+" hit dashboard");
+    console.log("Session saved is " + JSON.stringify(req.session));
     console.log("Time "+ time + " Day "+ day + " Date "+date+" Month "+ month + " Year "+ month);
-
     console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category);
 
-    if(req.session.username === 'undefined'){
-         return res.status(401).send();
+    if(!req.session.user){
+        res.status(401).json({message: "Unauthorized user"});
     }
-    console.log(JSON.stringify(req.session));
-    
-    var username = req.session.username;
-    
-    var Task = new Tasks();
-    Task.username    = username;
-    Task.task        = task;
-    Task.category    = category;
-    Task.updatedTime  = time;  
-    Task.updatedDay  = day;
-    Task.updatedDate  = date;
-    Task.updatedMonth = month;
-    Task.updatedYear = year;
-    
-    Task.save(function(err, savedTask){
-    
-        if(err){
-            console.log("Couldnot add tasks");
-            return res.status(500).send();
-        }
-        var responseObject = {message : "Successfully saved task"};
-        return res.status(200).json(responseObject);
+    else
+    {
+        console.log(JSON.stringify(req.session));
 
-    });
+        var username = req.session.user;
+
+        var Task = new Tasks();
+        Task.username    = username;
+        Task.task        = task;
+        Task.category    = category;
+        Task.updatedTime  = time;  
+        Task.updatedDay  = day;
+        Task.updatedDate  = date;
+        Task.updatedMonth = month;
+        Task.updatedYear = year;
+
+        Task.save(function(err, savedTask){
+
+            if(err){
+                console.log("Couldnot add tasks");
+                res.status(500).send();
+            }
+            else
+            {
+                var responseObject = {message : "Successfully saved task"};
+                res.status(200).json(responseObject);
+            }
+
+        });
+    }
 });
 
 
 router.get('/dashboard', function(req, res){
 
-    
-    if(req.session.username === 'undefined'){
-         return res.status(401).send();
-    }
-    
-    console.log("You " + req.session.username +" hit dashboard");    
-    Tasks.find({},{'__v':0, '_id': 0}, function(err, tasks){
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(!tasks){
-                console.log("No tasks found");
-              return  res.status(401).send();
-            }            
-            var responseObject = {  message : "Successfully",
-                                    username: req.session.username,
-                                    tasks   : tasks};
-            console.log(JSON.stringify(responseObject));
-            return res.status(200).json(responseObject);
-        }
-    });   
-    
+    console.log("Session saved is " + JSON.stringify(req.session));
 
+    console.log("You " + req.session.user +" hit dashboard");    
+    if(!req.session.user){
+        res.status(401).send();
+    }
+    else{
+        Tasks.find({},{'__v':0, '_id': 0}, function(err, tasks){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    if(!tasks){
+                        console.log("No tasks found");
+                        res.status(401).send();
+                    }
+                    else{
+                        var responseObject = {  message : "Successfully",
+                                                username: req.session.user,
+                                                tasks   : tasks};
+                        console.log(JSON.stringify(responseObject));
+                        res.status(200).json(responseObject);
+                    }
+                }
+        }); 
+    }
 });
 
 module.exports = router;

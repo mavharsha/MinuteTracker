@@ -27,6 +27,9 @@
                         .then(function(response){
                             console.log(JSON.stringify(response.data));
                             $scope.getTasks();
+                        $scope.task = "";
+                        $scope.category = "";
+                        
                         });
                 }else
                 {
