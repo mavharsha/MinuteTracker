@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../Lib/User');
 var Tasks = require('../Lib/Tasks');
-
+var jwt = require('jwt-simple');
+var secret = 'sasdasjkhakdhhfakkhjkdsliadsjkadsows';
 function checkAuth(req, res, next){
  if(!req.session.user){
         res.status(401).send('unauthorized user');
@@ -29,8 +30,12 @@ router.post('/login', function(req, res){
                 }
             else{
                     req.session.user = 'true';
+                    var payload = { user: user.username };
+                    // encode 
+                    var token = jwt.encode(payload, secret);
                     var responseObject = {  message : "Successfully logged in.",
-                                            username: user.username };
+                                            username: user.username,
+                                            token: token    };
                     console.log("Session saved is " + JSON.stringify(req.session));
 
                     res.status(200).json(responseObject);

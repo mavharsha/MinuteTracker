@@ -2,6 +2,10 @@
 
     var myapp = angular.module("myapp");
     
+    myapp.config(['$httpProvider', function($httpProvider){
+        $httpProvider.defaults.withCredentials = true;
+    }]);
+    
     myapp.controller('DashboardController', ['$scope', 'task', function($scope, task) {
     
         $scope.task = "";
