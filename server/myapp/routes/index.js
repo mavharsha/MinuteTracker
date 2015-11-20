@@ -4,14 +4,28 @@ var User = require('../Lib/User');
 var Tasks = require('../Lib/Tasks');
 var jwt = require('jwt-simple');
 var secret = 'sasdasjkhakdhhfakkhjkdsliadsjkadsows';
+
+// Middleware that authenticates all the secret pages
 function checkAuth(req, res, next){
- if(!req.session.user){
-        res.status(401).send('unauthorized user');
+    var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers.token;
+    
+    if (token) {    
+        try{
+            var decoded = jwt.decode(token, secret);
+            req.decoded = decoded;
+            next();
+        }
+        catch(err)
+        {
+            console.log("Error decoding the token");
+            res.status(403).json({ message: "Invalid user"});
+        }
     }
-else{
-        next();
+    else{
+        res.status(403).json({ message: "Invalid user"});
     }
 };
+
 
 router.post('/login', function(req, res){
 
@@ -29,15 +43,12 @@ router.post('/login', function(req, res){
                     res.status(404).send({message : "Username not found"});
                 }
             else{
-                    req.session.user = 'true';
                     var payload = { user: user.username };
-                    // encode 
                     var token = jwt.encode(payload, secret);
+
                     var responseObject = {  message : "Successfully logged in.",
                                             username: user.username,
                                             token: token    };
-                    console.log("Session saved is " + JSON.stringify(req.session));
-
                     res.status(200).json(responseObject);
             }
         }
@@ -79,8 +90,7 @@ router.post('/register', function(req, res){
 
 router.get('/logout', checkAuth,function(req, res){
 
-    req.session.destroy();
-    var responseObject = {message : "Successfully logged out"};
+    var responseObject = { message : "Successfully logged out" };
     res.status(200).json(responseObject);
 });
 
@@ -96,7 +106,6 @@ router.post('/dashboard', checkAuth, function(req, res) {
     var month   = new Date().getMonth();
     var year    = new Date().getYear();
     
-    console.log("Session saved is " + JSON.stringify(req.session));
     console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category);
 
         var username = req.session.user;
@@ -129,9 +138,6 @@ router.post('/dashboard', checkAuth, function(req, res) {
 
 
 router.get('/dashboard', checkAuth, function(req, res){
-
-    console.log("Session saved is " + JSON.stringify(req.session));
-    console.log("You " + req.session.user +" hit dashboard");    
  
     Tasks.find({},{'__v':0, '_id': 0}, function(err, tasks){
             if(err){
@@ -144,7 +150,7 @@ router.get('/dashboard', checkAuth, function(req, res){
                     }
                     else{
                         var responseObject = {  message : "Successfully",
-                                                username: req.session.user,
+                                                username: req.decoded.user,
                                                 tasks   : tasks};
                         console.log(JSON.stringify(responseObject));
                         res.status(200).json(responseObject);

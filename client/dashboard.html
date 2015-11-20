@@ -1,13 +1,21 @@
  <div class="row theme-base-0e">
                 <div class="sidebar" >
                     <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
+                    <nav>
+                          <a class="sidebar-nav-item" href="#">Sunday</a>
+                          <a class="sidebar-nav-item" href="#">Monday</a>
+                          <a class="sidebar-nav-item" href="#">Tuesday</a>
+                          <a class="sidebar-nav-item" href="#">Wednesday</a>
+                          <a class="sidebar-nav-item" href="#">Thursday</a>
+                          <a class="sidebar-nav-item" href="#">Friday</a>
+                          <a class="sidebar-nav-item" href="#">Saturday</a>
+                    </nav>
                 </div>
                 <div class="content" >
                     <h3>Todays Tasks</h3>
                     <div class="spacer-s"></div>
                                 <table style="width:100%">
                                     <!-- Set css for width of each td as 44% and the bottom padding as 10px -->
-                           
                                     <tr ng-repeat="eachTask in allTasks">
                                         <td>{{ eachTask.task }}</td>
                                         <td>{{ eachTask.category }}</td> 
