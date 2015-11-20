@@ -108,7 +108,7 @@ router.post('/dashboard', checkAuth, function(req, res) {
     
     console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category);
 
-        var username = req.session.user;
+        var username = req.decoded.user;
       
         var Task = new Tasks();
         Task.username       = username;
@@ -124,10 +124,11 @@ router.post('/dashboard', checkAuth, function(req, res) {
 
             if(err){
                 console.log("Couldnot add tasks");
-                res.status(500).send();
+                res.status(500).send({message: "task not added"});
             }
             else
             {
+                console.log("Couldnot add tasks" + JSON.stringify(savedTask));
                 var responseObject = {message : "Successfully saved task"};
                 res.status(200).json(responseObject);
             }
