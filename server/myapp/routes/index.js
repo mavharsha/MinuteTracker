@@ -49,7 +49,7 @@ router.post('/login', function(req, res){
                     var responseObject = {  message : "Successfully logged in.",
                                             username: user.username,
                                             token: token    };
-                    res.status(200).json(responseObject);
+                    res.status(200).jsonp(responseObject);
             }
         }
     });    

@@ -1,14 +1,15 @@
  <div class="row theme-base-0e">
                 <div class="sidebar" >
                     <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
+                    {{today}}
                     <nav>
-                          <a class="sidebar-nav-item" href="#">Sunday</a>
-                          <a class="sidebar-nav-item" href="#">Monday</a>
-                          <a class="sidebar-nav-item" href="#">Tuesday</a>
-                          <a class="sidebar-nav-item" href="#">Wednesday</a>
-                          <a class="sidebar-nav-item" href="#">Thursday</a>
-                          <a class="sidebar-nav-item" href="#">Friday</a>
-                          <a class="sidebar-nav-item" href="#">Saturday</a>
+                          <a class="sidebar-nav-item" href="" ng-click="hello()">Sunday</a>
+                          <a class="sidebar-nav-item" href="">Monday</a>
+                          <a class="sidebar-nav-item" href="">Tuesday</a>
+                          <a class="sidebar-nav-item" href="">Wednesday</a>
+                          <a class="sidebar-nav-item" href="">Thursday</a>
+                          <a class="sidebar-nav-item" href="">Friday</a>
+                          <a class="sidebar-nav-item" href="">Saturday</a>
                     </nav>
                 </div>
                 <div class="content" >
@@ -25,15 +26,25 @@
                             <div class="spacer">
                                 <div class="row">
                                 <div class="col-md-5">
-                                  <input type="text" placeholder="Task"  class="form-control" ng-model="task"/>
+                                  <input type="text" placeholder="Task"  class="form-control" ng-model="task" required/>
                                 </div>
                                 <div class="col-md-5">
-                                <input type="text" placeholder="Category"  class="form-control" ng-model="category"/>
+                                <input type="text" placeholder="Category"  class="form-control" ng-model="category" required/>
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-success" ng-click="addTask()" >Add Task</button>
                                 </div>
                                 </div>
                             </div>
+                            
+                        <div>
+
+                             <h4>For canvas!</h4>
+
+                         </div>
+                    
                 </div>
+     
+     
+     
 </div>

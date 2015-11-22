@@ -12,6 +12,9 @@
         $scope.category = "";
         $scope.allTasks  = [];
         
+        var date = new Date();
+        $scope.today =  date.getDay();
+        
         $scope.getTasks = function(){
             
                 task.getTasks()
@@ -21,9 +24,7 @@
                                     });
                             };
         
-/*
         $scope.getTasks();
-*/
         
         $scope.addTask = function(){
                     
@@ -42,7 +43,16 @@
                     console.log("Please enter the data");
                 }
         }
+        
+         $scope.hello = function(){
+        alert(this);
+    };
+        
+        
     }]); // End of the controller
+    
+    
+   
 
 
 }());

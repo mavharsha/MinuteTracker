@@ -12,7 +12,9 @@
               console.log("Response is "+ response.data.message);
 
             if(response.status == 200){
-                $location.path('/dashboard');
+                
+                window.localStorage.setItem('token', response.data.token);
+                $location.path('/dashboard');                
             }
         };
         
