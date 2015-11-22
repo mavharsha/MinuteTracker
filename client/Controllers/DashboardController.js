@@ -27,21 +27,20 @@
                      index: 5},
                     {day: 'Saturday',
                      index: 6},
-            ];
+                    ];
         
         var date = new Date();
         $scope.today =  date.getDay();
         
         $scope.getTasks = function(){
 
-            task.getTasks()
+            task.getTasks($scope.today)
                     .then(function(response){
                                     console.log(JSON.stringify(response.data.tasks));
                                     $scope.allTasks = response.data.tasks;
                                     });
                             };
         
-        $scope.getTasks();
         
         $scope.addTask = function(){
                     
@@ -64,13 +63,21 @@
          $scope.update = function(day){
              console.log("clicked"+ day.this);
              $scope.today = day.index;
-    };
+         };
         
         
         $scope.$watch('today', function(oldvalue, newvalue){
             
            $scope.getTasks();
         });
+        
+        $scope.editTask = function(task){
+            
+            alert("Task " +task.task +" falls under "+ task.category + " category");
+            
+        };
+        
+        
         
         
     }]); // End of the controller

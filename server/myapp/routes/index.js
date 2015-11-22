@@ -26,7 +26,6 @@ function checkAuth(req, res, next){
     }
 };
 
-
 router.post('/login', function(req, res){
 
     var username = req.body.username;
@@ -54,7 +53,6 @@ router.post('/login', function(req, res){
         }
     });    
 });
-
 
 router.post('/register', function(req, res){
 
@@ -87,13 +85,11 @@ router.post('/register', function(req, res){
 
 });
 
-
 router.get('/logout', checkAuth,function(req, res){
 
     var responseObject = { message : "Successfully logged out" };
     res.status(200).json(responseObject);
 });
-
 
 router.post('/dashboard', checkAuth, function(req, res) {
 
@@ -137,10 +133,13 @@ router.post('/dashboard', checkAuth, function(req, res) {
     
 });
 
-
 router.get('/dashboard', checkAuth, function(req, res){
  
-    Tasks.find({},{'__v':0, '_id': 0}, function(err, tasks){
+    var username = req.headers.username;
+    var day = req.headers.day;
+    
+    console.log("Tasks requested by" + username + "for day "+ day);
+    Tasks.find({username: username, updatedDay: day},{'__v':0, '_id': 0}, function(err, tasks){
             if(err){
                     console.log(err);
                 }
@@ -152,7 +151,7 @@ router.get('/dashboard', checkAuth, function(req, res){
                     else{
                         var responseObject = {  message : "Successfully",
                                                 username: req.decoded.user,
-                                                tasks   : tasks};
+                                                tasks   : tasks };
                         console.log(JSON.stringify(responseObject));
                         res.status(200).json(responseObject);
                     }

@@ -13,6 +13,8 @@
 
             if(response.status == 200){
                 window.localStorage.setItem('token', response.data.token);
+                window.localStorage.setItem('username', response.data.username);
+
                 $location.path('/dashboard');                
             }
         };

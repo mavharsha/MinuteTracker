@@ -22,13 +22,16 @@
                     });
             };
         
-        var getTasks = function(){
+        var getTasks = function(day){
             
             var token = window.localStorage.getItem('token');
-            console.log("token added to the http request is "+ token);
+            var username = window.localStorage.getItem('username');
+            var day = day;
+            console.log("token added to the http request is " + token);
+            console.log("Username added to the http request is " + username);  
+            console.log("Day added to the http request is " + day);  
             
-            var config = {headers:  {'token': token}};
-            
+            var config = {headers:  {'token': token, username: username, day: day }};
             
            return $http.get("http://localhost:3000/dashboard", config)
                     .then(function(response){

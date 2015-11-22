@@ -14,7 +14,7 @@
                         controller  : "DashboardController"
                     })
                     .when("/logout", {
-                        templateUrl : "logout",
+                        templateUrl : "logout.html",
                         controller  : "LogoutController"
                     })
                     .otherwise({redirectTo : "/login"});

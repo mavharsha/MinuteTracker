@@ -3,7 +3,7 @@
                     <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
                     {{today}}
                     
-                    <nav>
+                    <nav class="sidebar-nav">
                         <ul ng-repeat="day in days">
                             <a class="sidebar-nav-item" href="" ng-click="update(day)">{{day.day}}</a>
                         <ul>
@@ -17,7 +17,7 @@
                                     <tr ng-repeat="eachTask in allTasks">
                                         <td>{{ eachTask.task }}</td>
                                         <td>{{ eachTask.category }}</td> 
-                                        <td><button type="button" class="btn" >Edit</button></td>
+                                        <td><button type="button" class="btn" ng-click="editTask(eachTask)" >Edit</button></td>
                                     </tr>
                                     </table>
                             <div class="spacer">
