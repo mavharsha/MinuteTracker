@@ -51,7 +51,7 @@ html {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 18rem;
+    width: 14rem;
     text-align: left;
   }
 }
@@ -63,11 +63,11 @@ html {
 }
 
 /* Title section */
-.sidebar-title h1 {
+.sidebar-title h3 {
   color: #333	;
   margin-top: 0;
   font-family: "Abril Fatface", serif;
-  font-size: 3.25rem;
+  font-size: 2.0rem;
 }
 
 /* Sidebar nav */
@@ -164,12 +164,8 @@ color: #fff;
 
 /*
  * Themes
- *
- * As of v1.1, Hyde includes optional themes to color the sidebar and links
- * within blog posts. To use, add the class of your choosing to the `body`.
  */
 
-/* Base16 (http://chriskempson.github.io/base16/#default) */
 
 /* Red */
 .theme-base-08 .sidebar {

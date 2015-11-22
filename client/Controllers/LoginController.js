@@ -12,7 +12,6 @@
               console.log("Response is "+ response.data.message);
 
             if(response.status == 200){
-                
                 window.localStorage.setItem('token', response.data.token);
                 $location.path('/dashboard');                
             }
@@ -22,11 +21,11 @@
             console.log("Unauthorized user");
         };
         
-    $scope.login = function() {
-        console.log("Login pressed");
-        user.login($scope.username, $scope.password)
-            .then(onComplete, onerror);
-    };
+        $scope.login = function() {
+            console.log("Login pressed");
+            user.login($scope.username, $scope.password)
+                .then(onComplete, onerror);
+        };
 
     }]);
     

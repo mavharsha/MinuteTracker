@@ -2,14 +2,11 @@
                 <div class="sidebar" >
                     <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
                     {{today}}
+                    
                     <nav>
-                          <a class="sidebar-nav-item" href="" ng-click="hello()">Sunday</a>
-                          <a class="sidebar-nav-item" href="">Monday</a>
-                          <a class="sidebar-nav-item" href="">Tuesday</a>
-                          <a class="sidebar-nav-item" href="">Wednesday</a>
-                          <a class="sidebar-nav-item" href="">Thursday</a>
-                          <a class="sidebar-nav-item" href="">Friday</a>
-                          <a class="sidebar-nav-item" href="">Saturday</a>
+                        <ul ng-repeat="day in days">
+                            <a class="sidebar-nav-item" href="" ng-click="update(day)">{{day.day}}</a>
+                        <ul>
                     </nav>
                 </div>
                 <div class="content" >
