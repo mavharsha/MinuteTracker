@@ -133,6 +133,37 @@ router.post('/dashboard', checkAuth, function(req, res) {
     
 });
 
+router.get('/dashdetails', checkAuth,function(req, res){
+    
+    var username = req.headers.username;
+     var day = parseInt(req.headers.day);
+    
+    console.log("the username is "+ username + " and day sent is "+ day);
+    console.log(typeof(day));
+    
+    /*Tasks.aggregate({ $match: { username: username, updatedDate : day } },  {$group: {_id: "$category", count: {$sum: 1}}}, function(err, result){
+        
+        if(err) res.status(500).send(err);
+        else
+            console.log(result);
+            res.status(200).send(result);
+        
+        $match: { $or: [ { score: { $gt: 70, $lt: 90 } }, { views: { $gte: 1000 } } ] } }
+        
+    });*/
+    
+    Tasks.aggregate([{$match : {username: username, updatedDay: day}},{$group: {_id: "$category", count: {$sum: 1}}}], function(err, result){
+        
+        if(err) res.status(500).send(err);
+        else{
+            console.log(result);
+            res.status(200).send(result);
+        }
+    });    
+    
+    
+});
+
 router.get('/dashboard', checkAuth, function(req, res){
  
     var username = req.headers.username;

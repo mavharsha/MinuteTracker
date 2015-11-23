@@ -35,14 +35,33 @@
             
            return $http.get("http://localhost:3000/dashboard", config)
                     .then(function(response){
-                    console.log("the response recieved is "+ JSON.stringify(response.data));
                      return response;
                     });
             };
+        
+        var getChartDetails = function(day){
+            
+            var token = window.localStorage.getItem('token');
+            var username = window.localStorage.getItem('username');
+            var day = day;
+            console.log("token added to the http request is " + token);
+            console.log("Username added to the http request is " + username);  
+            console.log("Day added to the http request is " + day);  
+            
+            var config = {headers:  {'token': token, username: username, day: day }};
+            
+            return $http.get("http://localhost:3000/dashdetails", config)
+                    .then(function(response){
+                     return response;
+                    });
+            
+            
+        };
 
         return {
                 postTask : postTask,
-                getTasks  : getTasks 
+                getTasks  : getTasks,
+                getChartDetails : getChartDetails
                };
     });
 }());

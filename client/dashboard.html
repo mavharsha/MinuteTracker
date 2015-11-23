@@ -1,16 +1,16 @@
  <div class="row theme-base-0e">
                 <div class="sidebar" >
-                    <div class="sidebar-title" style=> <H3> Dashboard </H3></div>
-                    {{today}}
-                    
+                    <div class="sidebar-title" style=> <H3> Dashboard </H3></div>                    
                     <nav class="sidebar-nav">
                         <ul ng-repeat="day in days">
                             <a class="sidebar-nav-item" href="" ng-click="update(day)">{{day.day}}</a>
                         <ul>
                     </nav>
+                            <div class="sidebar-nav-item" ng-click="logout()"><a href="" ng-click="logout()">Logout</a></div>
                 </div>
+                
                 <div class="content" >
-                    <h3>Todays Tasks</h3>
+                    <h3>{{titleDay}}'s Tasks</h3>
                     <div class="spacer-s"></div>
                                 <table style="width:100%">
                                     <!-- Set css for width of each td as 44% and the bottom padding as 10px -->
@@ -21,7 +21,7 @@
                                     </tr>
                                     </table>
                             <div class="spacer">
-                                <div class="row">
+                                <div class="row" ng-show="checkAddTaskShow()">
                                 <div class="col-md-5">
                                   <input type="text" placeholder="Task"  class="form-control" ng-model="task" required/>
                                 </div>
@@ -29,16 +29,12 @@
                                 <input type="text" placeholder="Category"  class="form-control" ng-model="category" required/>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" class="btn btn-success" ng-click="addTask()" >Add Task</button>
+                                <button type="button" class="btn btn-success" ng-click="addTask()">Add Task</button>
                                 </div>
                                 </div>
                             </div>
-                            
-                        <div>
-
-                             <h4>For canvas!</h4>
-
-                         </div>
+                        <div class="spacer"></div>
+                        <div id="chart"></div>
                     
                 </div>
      

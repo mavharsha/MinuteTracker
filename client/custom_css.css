@@ -11,6 +11,11 @@ width: 44%;
 padding-bottom: 10px;
 }
 
+.logout{
+    position: fixed;
+    bottom: 15px;
+    font-size: 18px;
+}
 
 /*.panel{
 width : 40px;

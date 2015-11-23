@@ -22,11 +22,19 @@
         
         var logout = function(){
         
+                var token = window.localStorage.getItem('token');
+                var config = {headers:  {'token': token}};
+            
+            return $http.get("http://localhost:3000/logout", config)
+                    .then(function(response){
+                     return response;
+                    });
+
         
         
         };
         
         
-        return {login : login };
+        return {login : login, logout: logout };
     });
 }());
