@@ -29,12 +29,28 @@
                     .then(function(response){
                      return response;
                     });
-
+                
+                    };
         
+            
+            var register = function(username, password, firstname, lastname){
+                
+                var data = {
+                        username: username,
+                        password: password,
+                        firstname: firstname,
+                        lastname:   lastname
+                        };                
+            
+                         console.log(JSON.stringify(data));
+                return $http.post("http://localhost:3000/register", data)
+                        .then(function(response){
+                         console.log("the response recieved is "+ response.data);
+                         return response;
+                        });
+            
+                        };
         
-        };
-        
-        
-        return {login : login, logout: logout };
+        return {login : login, logout: logout, register: register};
     });
 }());

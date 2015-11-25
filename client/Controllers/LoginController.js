@@ -14,13 +14,13 @@
             if(response.status == 200){
                 window.localStorage.setItem('token', response.data.token);
                 window.localStorage.setItem('username', response.data.username);
-
                 $location.path('/dashboard');                
             }
         };
         
         var onerror = function(err){
-            console.log("Unauthorized user");
+            
+           alert("Unauthorized user");
         };
         
         $scope.login = function() {
@@ -28,6 +28,13 @@
             user.login($scope.username, $scope.password)
                 .then(onComplete, onerror);
         };
+        
+        
+        $scope.register = function(){
+            $location.path('/register');
+        };
+        
+        
 
     }]);
     

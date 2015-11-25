@@ -17,6 +17,10 @@
                         templateUrl : "logout.html",
                         controller  : "LogoutController"
                     })
+                    .when("/register", {
+                        templateUrl :  "register.html",
+                        controller  :   "RegisterController"
+                    })
                     .otherwise({redirectTo : "/login"});
     
     });

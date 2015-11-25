@@ -6,7 +6,12 @@ height: 40px;
 height: 20px;
 }
 
-td{
+td {
+width: 44%;
+padding-bottom: 10px;
+}
+
+th {
 width: 44%;
 padding-bottom: 10px;
 }
