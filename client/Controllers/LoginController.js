@@ -19,7 +19,6 @@
         };
         
         var onerror = function(err){
-            
            alert("Unauthorized user");
         };
         

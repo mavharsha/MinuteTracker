@@ -24,7 +24,7 @@
                     {day: 'Friday',
                      index: 5},
                     {day: 'Saturday',
-                     index: 6},
+                     index: 6}
                     ];
         
         var date = new Date();
@@ -42,32 +42,37 @@
                                     });
                             };
         
-        // Post task
-        $scope.addTask = function(){
-                    
-            if( $scope.task != "" &&  $scope.category != "")
-                {
-                    task.postTask($scope.task, $scope.category)
-                        .then(function(response){
+        var onCompleteAddTask = function(response){
                             console.log(JSON.stringify(response.data));
                             $scope.getTasks();
                             $scope.getChartDetails();
                             $scope.task = "";
                             $scope.category = "";
                         
-                        });
+                        };
+        var onErrorAddTask = function(err){
+                            console.log("Couldn't add task due to an error "+err);
+        };
+        
+        // Post task
+        $scope.addTask = function(){
+                    
+            if( $scope.task != "" &&  $scope.category != "")
+                {
+                    task.postTask($scope.task, $scope.category)
+                        .then(onCompleteAddTask, onErrorAddTask);
                 }else
                 {
                     console.log("Please enter the data");
                 }
-        }
+        };
         
         
         $scope.getChartDetails = function(){
-            task.getChartDetails($scope.today)
+                task.getChartDetails($scope.today)
                     .then(function(response){
                                     console.log("Chart details are "+JSON.stringify(response.data));
-                                     chartArray = response.data;
+                                    chartArray = response.data;
                                     removeChart();
                                     drawChart();
                                     console.log(chartArray);
@@ -77,7 +82,6 @@
         $scope.checkAddTaskShow = function(){
             
             var date = new Date();
-            
             if(date.getDay() == $scope.today){
                 return true;
             }
@@ -90,9 +94,7 @@
              console.log("clicked"+ day.index);
              $scope.today = day.index;
              var week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
-            $scope.titleDay = week[$scope.today];
-             
+             $scope.titleDay = week[$scope.today];
          };
         
         // Update Ui when different day it selected
