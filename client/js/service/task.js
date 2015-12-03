@@ -4,18 +4,19 @@
     myapp.factory('task', function($http){
         
         
-        var postTask = function(task, category){
+        var postTask = function(task, category, tasktime){
                     
             var data = {
                         task: task,
-                        category: category
+                        category: category,
+                        tasktime: tasktime
                         };
             var token = window.localStorage.getItem('token');
             console.log("token added to the http request is "+ token);
             
             var config = {headers:  {'token': token}};
             
-            console.log("Data being sent form client is " + data);
+            console.log("Data being sent form client is " + JSON.stringify(data));
            return $http.post("http://localhost:3000/dashboard", data, config)
                     .then(function(response){
                      return response;

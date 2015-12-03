@@ -1,4 +1,4 @@
-(function(){
+(function () {
     
     var myapp = angular.module("myapp");
     var chartArray = [];
@@ -7,6 +7,7 @@
     
         $scope.task = "";
         $scope.category = "";
+        $scope.tasktime = "";
         $scope.allTasks  = [];
         
         var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -33,21 +34,23 @@
        
         
         // Get task of the selected day
-        $scope.getTasks = function(){
+        $scope.getTasks = function (){
 
             task.getTasks($scope.today)
-                    .then(function(response){
-                                    console.log(JSON.stringify(response.data.tasks));
+                    .then(function (response){
+                                    console.log(JSON.stringify(response.data));
                                     $scope.allTasks = response.data.tasks;
                                     });
                             };
         
-        var onCompleteAddTask = function(response){
+        var onCompleteAddTask = function (response){
                             console.log(JSON.stringify(response.data));
                             $scope.getTasks();
                             $scope.getChartDetails();
                             $scope.task = "";
                             $scope.category = "";
+                            $scope.tasktime = "";
+
                         
                         };
         var onErrorAddTask = function(err){
@@ -59,7 +62,7 @@
                     
             if( $scope.task != "" &&  $scope.category != "")
                 {
-                    task.postTask($scope.task, $scope.category)
+                    task.postTask($scope.task, $scope.category, $scope.tasktime)
                         .then(onCompleteAddTask, onErrorAddTask);
                 }else
                 {
@@ -68,9 +71,9 @@
         };
         
         
-        $scope.getChartDetails = function(){
+        $scope.getChartDetails = function (){
                 task.getChartDetails($scope.today)
-                    .then(function(response){
+                    .then(function (response){
                                     console.log("Chart details are "+JSON.stringify(response.data));
                                     chartArray = response.data;
                                     removeChart();
@@ -79,7 +82,7 @@
                                     });
         };
         
-        $scope.checkAddTaskShow = function(){
+        $scope.checkAddTaskShow = function (){
             
             var date = new Date();
             if(date.getDay() == $scope.today){
@@ -90,7 +93,7 @@
         
         
         // For change in day selected
-         $scope.update = function(day){
+         $scope.update = function (day){
              console.log("clicked"+ day.index);
              $scope.today = day.index;
              var week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -114,7 +117,7 @@
         $scope.logout = function(){
             
             user.logout()
-                    .then(function(response){
+                    .then(function (response){
                             $location.path('/logout');  
                             });
             };
@@ -125,7 +128,7 @@
       d3.select("svg").remove();  
     };
     
-        var drawChart = function(){
+        var drawChart = function (){
 
         var width = 400;
         var height = 400;
@@ -171,10 +174,7 @@
                     d.innerRadius = radius/2;
                     d.outerRadius = radius;
             return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").text( function(d, i) {
-            return data[i]._id;}
+            return data[i]._id + " "+data[i].count+" mins";}
                 );
         }
-    
-     
-
 }());

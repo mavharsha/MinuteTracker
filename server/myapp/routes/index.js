@@ -95,6 +95,8 @@ router.post('/dashboard', checkAuth, function(req, res) {
 
     var task = req.body.task;
     var category = req.body.category;
+    var tasktime = req.body.tasktime;
+    var username = req.decoded.user;
     
     var time    = new Date().getTime();
     var day     = new Date().getDay();
@@ -102,14 +104,13 @@ router.post('/dashboard', checkAuth, function(req, res) {
     var month   = new Date().getMonth();
     var year    = new Date().getYear();
     
-    console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category);
-
-        var username = req.decoded.user;
-      
+    console.log("data recieved at server Task is "+ req.body.task + " and category is " + req.body.category + " and the task time is "+ tasktime);
+    
         var Task = new Tasks();
         Task.username       = username;
         Task.task           = task;
         Task.category       = category;
+        Task.taskTime       = tasktime;
         Task.updatedTime    = time;  
         Task.updatedDay     = day;
         Task.updatedDate    = date;
@@ -128,7 +129,6 @@ router.post('/dashboard', checkAuth, function(req, res) {
                 var responseObject = {message : "Successfully saved task"};
                 res.status(200).json(responseObject);
             }
-
         });
     
 });
@@ -141,18 +141,7 @@ router.get('/dashdetails', checkAuth,function(req, res){
     console.log("the username is "+ username + " and day sent is "+ day);
     console.log(typeof(day));
     
-    /*Tasks.aggregate({ $match: { username: username, updatedDate : day } },  {$group: {_id: "$category", count: {$sum: 1}}}, function(err, result){
-        
-        if(err) res.status(500).send(err);
-        else
-            console.log(result);
-            res.status(200).send(result);
-        
-        $match: { $or: [ { score: { $gt: 70, $lt: 90 } }, { views: { $gte: 1000 } } ] } }
-        
-    });*/
-    
-    Tasks.aggregate([{$match : {username: username, updatedDay: day}},{$group: {_id: "$category", count: {$sum: 1}}}], function(err, result){
+    Tasks.aggregate([{$match : {username: username, updatedDay: day}},{$group: {_id: "$category", count: {$sum: "$taskTime"}}}], function(err, result){
         
         if(err) res.status(500).send(err);
         else{

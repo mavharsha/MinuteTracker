@@ -6,7 +6,7 @@
                             <a class="sidebar-nav-item" href="" ng-click="update(day)">{{day.day}}</a>
                         <ul>
                     </nav>
-                            <div class="sidebar-nav-item" ng-click="logout()"><a href="" ng-click="logout()">Logout</a></div>
+                        <div class="sidebar-nav-item" ng-click="logout()"><a href="" ng-click="logout()">Logout</a></div>
                 </div>
                 
                 <div class="content" >
@@ -16,19 +16,24 @@
                                     <!-- Set css for width of each td as 44% and the bottom padding as 10px -->
                                     <th>Task</th>
                                     <th>Category</th>
+                                    <th>TaskTime</th>
                                     <tr ng-repeat="eachTask in allTasks">
                                         <td>{{ eachTask.task }}</td>
-                                        <td>{{ eachTask.category }}</td> 
+                                        <td>{{ eachTask.category }}</td>
+                                        <td>{{ eachTask.taskTime }}</td> 
                                         <td><button type="button" class="btn" ng-click="editTask(eachTask)" >Edit</button></td>
                                     </tr>
                                     </table>
                             <div class="spacer">
                                 <div class="row" ng-show="checkAddTaskShow()">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                   <input type="text" placeholder="Task"  class="form-control" ng-model="task" required/>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                 <input type="text" placeholder="Category"  class="form-control" ng-model="category" required/>
+                                </div>
+                                <div class="col-md-2">
+                                <input type="text" placeholder="Time"  class="form-control" ng-model="tasktime" required/>
                                 </div>
                                 <div class="col-md-2">
                                 <button type="button" class="btn btn-success" ng-click="addTask()">Add Task</button>
@@ -37,9 +42,5 @@
                             </div>
                         <div class="spacer"></div>
                         <div id="chart"></div>
-                    
                 </div>
-     
-     
-     
 </div>
