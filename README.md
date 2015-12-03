@@ -1,5 +1,6 @@
 # MinuteTracker
-Tracking and Categorizing.
+Task Tracking and Categorizing.
+Inspired by an [article] (https://www.linkedin.com/pulse/productivity-hacks-what-i-learned-from-month-tracking-sam-shank) "What I Learned From a Month of Tracking Every Minute of My Time" by Sam Shank
 
 MEAN Stack application.
 
@@ -8,7 +9,12 @@ Express
 Angular
 Nodejs
 
-and
+&
 
 Mongoosejs as ODM
-jwt-simple for Authentication
+jwt for Authentication.
+
+Thank you for stopping by.
+
+#Author
+Sree Harsha Mamilla.
