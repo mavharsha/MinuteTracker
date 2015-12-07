@@ -136,7 +136,7 @@ router.post('/dashboard', checkAuth, function(req, res) {
 router.get('/dashdetails', checkAuth,function(req, res){
     
     var username = req.headers.username;
-     var day = parseInt(req.headers.day);
+    var day = parseInt(req.headers.day);
     
     console.log("the username is "+ username + " and day sent is "+ day);
     console.log(typeof(day));
@@ -149,8 +149,28 @@ router.get('/dashdetails', checkAuth,function(req, res){
             res.status(200).send(result);
         }
     });    
+});
+
+router.put('/dashboard', checkAuth, function (req, res) {
     
+    var id = req.body.id;
+    var task = req.body.task;
+    var category = req.body.category;
+    var tasktime = req.body.tasktime;
     
+    console.log("id " + id + " task "+ task+ " category " +category+" tasktime "+ tasktime);
+    var condition = {_id : id};
+    var updatevalues = {$set: { task : task, category: category, taskTime: tasktime}};
+    
+    Tasks.findByIdAndUpdate(condition, updatevalues, function(err, task){
+            
+            if(err){
+                res.status(404).send(err);
+            }
+            else{
+                res.status(200).send(task);
+            }
+    });
 });
 
 router.get('/dashboard', checkAuth, function(req, res){
@@ -158,8 +178,8 @@ router.get('/dashboard', checkAuth, function(req, res){
     var username = req.headers.username;
     var day = req.headers.day;
     
-    console.log("Tasks requested by" + username + "for day "+ day);
-    Tasks.find({username: username, updatedDay: day},{'__v':0, '_id': 0}, function(err, tasks){
+    console.log("Tasks requested by " + username + " or day "+ day);
+    Tasks.find({username: username, updatedDay: day},{'__v':0/*, '_id': 0*/}, function(err, tasks){
             if(err){
                     console.log(err);
                 }
