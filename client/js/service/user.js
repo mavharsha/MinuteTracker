@@ -19,7 +19,6 @@
                     });
             };
         
-        
         var logout = function(){
         
                 var token = window.localStorage.getItem('token');

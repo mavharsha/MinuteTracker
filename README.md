@@ -18,3 +18,6 @@ Thank you for stopping by.
 
 #Author
 Sree Harsha Mamilla.
+
+
+<img src="https://github.com/mavharsha/MinuteTracker/blob/master/Screenshots/Dashboard.png "Login"" width="100%"></img> 
