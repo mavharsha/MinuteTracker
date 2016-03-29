@@ -20,4 +20,4 @@ Thank you for stopping by.
 Sree Harsha Mamilla.
 
 
-<img src="https://github.com/mavharsha/MinuteTracker/blob/master/Screenshots/Dashboard.png "Login"" width="100%"></img> 
+<img src="https://github.com/mavharsha/MinuteTracker/blob/master/Screenshot/Dashboard.PNG"Dashboard"" width="30%"></img> 
